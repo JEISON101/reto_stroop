@@ -4,8 +4,8 @@ import { useNavigate } from "react-router-dom";
 
 const Formulario: React.FC<NivelesInterface> = (tiempo) => {
   const navigate = useNavigate();
-  const [resTime, setResTime] = useState<number>();
-  const [parTime, setParTime] = useState<number>();
+  const [resTime, setResTime] = useState<number>(tiempo.tiempo);
+  const [parTime, setParTime] = useState<number>(30);
 
   const jugar = () => {
     navigate("/jugar", { state: {nivel:{nombre:'Personalizado', tiempo:resTime}, partidaTime:parTime} });
@@ -26,7 +26,6 @@ const Formulario: React.FC<NivelesInterface> = (tiempo) => {
               placeholder="milisegundos"
               onChange={(e)=>setResTime(parseInt(e.target.value))}
               defaultValue={tiempo.tiempo.toString()}
-              min={3}
             />
           </div>
             <div>
@@ -39,7 +38,6 @@ const Formulario: React.FC<NivelesInterface> = (tiempo) => {
               placeholder="segundos"
               onChange={(e)=>setParTime(parseInt(e.target.value))}
               defaultValue={30}
-              min={5}
             />
             </div>
             <button

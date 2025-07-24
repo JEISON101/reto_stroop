@@ -4,8 +4,9 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Home from './pages/Home'
 import Jugar from './pages/Jugar'
 import Resultado from './pages/Resultado'
-import Puntajes from './pages/puntajes'
+import Puntajes from './pages/Puntajes'
 import Configuracion from './pages/Configuracion'
+import Imagenes from './pages/Imagenes'
 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
           <Route path='/configuracion' element={<Configuracion/>}/>
           <Route path='/puntajes' element={<Puntajes/>}/>
           <Route path='/resultado' element={<Resultado/>}/>
+          <Route path='/imgs' element={<Imagenes/>}/>
         </Routes>
       </BrowserRouter>
     </>

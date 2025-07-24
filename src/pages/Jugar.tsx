@@ -11,8 +11,8 @@ const Jugar: React.FC = () => {
   const [cantPalabras, setCantPalabras] = useState<number>(0);
   const [respuesta, setRespuesta] = useState<number>()
   
-  const [inicio, setInicio] = useState<number>();
-  const [fin, setFin] = useState<number>();
+  const [inicio, setInicio] = useState<number>(0);
+  const [fin, setFin] = useState<number>(0);
   
   const porPalabras = Math.floor((correctas / cantPalabras) * 100);
   const navigate = useNavigate();
@@ -21,11 +21,11 @@ const Jugar: React.FC = () => {
   const {nivel, partidaTime} = location.state;
   const [tiempoRes, setTiempoRes] = useState<number>(partidaTime? partidaTime:30);
   
-  const tiemposReaccion:number[] = [];
-  const promedioReaccion = tiemposReaccion.reduce((a, b)=> a + b, 0);
+  const [tiemposReaccion, setTiemposReaccion]= useState<number[]>([]);
+  const sumaReaccion = tiemposReaccion.reduce((a, b)=> a + b, 0);
   
-  const promedioTiempo = (inicio:number, fin:number) => {
-    tiemposReaccion.push(inicio-fin)
+  const addTiempo = (inicio: number, fin: number) => {
+    setTiemposReaccion((prev) => [...prev, Math.abs(fin - inicio)]);
   }
 
   const combinar = () => {
@@ -33,7 +33,7 @@ const Jugar: React.FC = () => {
     const colorRandom = COLORES[Math.floor(Math.random() * COLORES.length)];
     setPalabra(palabraRandom);
     setColor(colorRandom);
-    setInicio(Date.now)
+    setInicio(Date.now())
   };
 
   if (tiempoRes <= 0) {
@@ -42,7 +42,7 @@ const Jugar: React.FC = () => {
         cantPalabras:cantPalabras,
         correctas: correctas,
         porcentaje: porPalabras,
-        reaccion:promedioReaccion/tiemposReaccion.length,
+        reaccion:sumaReaccion/tiemposReaccion.length,
         nivel:nivel.nombre
       },
     });
@@ -68,8 +68,8 @@ const Jugar: React.FC = () => {
   const validarSi = () => {
     if (palabra?.nombre == color?.nombre) {
       setCorrectas(correctas + 1);
-      setFin(Date.now)
-      promedioTiempo(inicio, fin)
+      setFin(Date.now())
+      addTiempo(inicio, fin)
       combinar();
     } else {
       combinar();
@@ -81,7 +81,7 @@ const Jugar: React.FC = () => {
     if (palabra?.nombre != color?.nombre) {
       setCorrectas(correctas + 1);
       setFin(Date.now)
-      promedioTiempo(inicio, fin)
+      addTiempo(inicio, fin)
       combinar();
     } else {
       combinar();

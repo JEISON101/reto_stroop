@@ -30,7 +30,7 @@ const Resultado = () => {
             <span className="font-semibold text-blue-600">Porcentaje:</span> {porcentaje}%
           </p>
           <p className="text-lg font-medium text-gray-700">
-            <span className="font-semibold text-blue-600">Tiempo de reacción:</span> {reaccion}
+            <span className="font-semibold text-blue-600">Tiempo de reacción:</span> {reaccion}ms
           </p>
         </div>
         <div className="mt-6 flex flex-col items-center space-y-2">

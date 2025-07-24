@@ -2,9 +2,12 @@ import { FaTrophy } from "react-icons/fa6";
 import { FaCogs } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { BiPlay } from "react-icons/bi";
+import { useEffect, useState } from "react";
 
 const Home: React.FC = () => {
+  //const [imagen, setImagen] = useState<string>('https://res.cloudinary.com/djfutossp/image/upload/v1753334202/cld-sample-2.jpg')
   const navigate = useNavigate();
+
   return (
     <>
       <div className="px-2">
@@ -14,9 +17,9 @@ const Home: React.FC = () => {
           </div>
 
           <div className="flex justify-center">
-            <img
-              src="https://img.freepik.com/psd-gratis/3d-ilustracion-persona-gafas-sol_23-2149436188.jpg?semt=ais_hybrid&w=740"
-              alt="Perfil"
+              <img 
+              onClick={()=>navigate('/imgs')}
+              src={localStorage.getItem('imagen')}
               className="rounded-full w-32 h-32 object-cover -mt-18 border-4 border-white"
             />
           </div>
