@@ -39,14 +39,29 @@ const Imagenes: React.FC = () => {
   };
   return (
     <>
-      <div>
-        <div className="flex flex-wrap gap-4 mb-6">
+      <div className="flex flex-col items-center p-4">
+        <form onSubmit={enviarFoto} className="flex space-x-8 items-center my-8">
+          <input
+            type="file"
+            name="imagen"
+            accept="image/*"
+            required
+            className="block sm:w-1/2 w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-md file:bg-blue-50 file:text-blue-700"
+          />
+          <button
+            type="submit"
+            className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+          >
+            Subir Imagen
+          </button>
+        </form>
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-6">
           {imagenes.map((img, idx) => (
             <div
               key={idx}
               onClick={() => {
-                localStorage.setItem('imagen', img.url)
-                navigate("/") 
+                localStorage.setItem("imagen", img.url);
+                navigate("/home");
               }}
               className="border border-gray-300 rounded-lg p-2 w-32 text-center"
             >
@@ -61,21 +76,6 @@ const Imagenes: React.FC = () => {
             </div>
           ))}
         </div>
-        <form onSubmit={enviarFoto} className="flex gap-2 items-center">
-          <input
-            type="file"
-            name="imagen"
-            accept="image/*"
-            required
-            className="block"
-          />
-          <button
-            type="submit"
-            className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-          >
-            Subir Imagen
-          </button>
-        </form>
       </div>
     </>
   );

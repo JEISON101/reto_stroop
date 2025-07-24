@@ -1,22 +1,33 @@
-import { PUNTAJES } from "../data/puntajes";
+import { useEffect, useState } from "react";
 import builder from "xmlbuilder";
+import axios from "axios";
+import type { PuntajeInterface } from "../interfaces/PuntajeInterface";
 
 const Puntajes = () => {
-  const top = PUNTAJES.sort((a, b) => b.porcentaje - a.porcentaje).slice(0, 5);
+
+  const [puntajes, setPuntajes] = useState<PuntajeInterface[]>([]);
+
+    useEffect(() => {
+      const getPuntajes = async () => {
+          const response = await axios.get("http://localhost:3333/puntajes");
+          setPuntajes(response.data.puntajes);
+      };
+      getPuntajes();
+    }, []);
+
   const info = {
     puntajes: {
-      puntaje: top.map((p) => ({
+      puntaje: puntajes.map((p) => ({
         cantpalabras: { _total_palabras: p.cantPalabras },
         correctas: { _correctas: p.correctas },
         porcentaje: { _porcentaje_correctas: p.porcentaje },
         reaccion: { _tiempo_reaccion: p.reaccion },
-        nivel: { _nivel: p.nivel },
+        nivel: { _nivel: p.nivel }
       })),
     },
   };
   const descargarXml = () => {
-    if (top.length > 0) {
-      //crea el xml a partir del array top y estructura info
+    if (puntajes?.length > 0) {
       const res = builder.create(info).end({ pretty: true });
 
       const blob = new Blob([res], { type: "application/xml" });
@@ -36,9 +47,9 @@ const Puntajes = () => {
 
   return (
     <div className="max-w-xl mx-auto mt-8 space-y-6">
-      {top.length > 0 ? (
+      {puntajes?.length > 0 ? (
         <div>
-          {top.map((puntaje, idx) => (
+          {puntajes.map((puntaje, idx) => (
             <div
               key={idx}
               className="rounded-xl shadow-lg bg-white p-6 border border-gray-200 hover:shadow-xl transition mb-2"
