@@ -10,6 +10,8 @@ import { useEffect } from "react";
 import { io } from "socket.io-client";
 import Login from "./pages/login";
 import VistaPrivada from "./components/VistaPrivada";
+import Register from "./pages/Register";
+import {Toaster} from 'react-hot-toast'
 
 function App() {
 
@@ -25,6 +27,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Login/>} />
+          <Route path="/register" element={<Register/>} />
           <Route path="/home" element={<VistaPrivada><Home /></VistaPrivada>} />
           <Route path="/jugar" element={<VistaPrivada><Jugar /></VistaPrivada>} />
           <Route path="/configuracion" element={<VistaPrivada><Configuracion /></VistaPrivada>} />
@@ -32,6 +35,7 @@ function App() {
           <Route path="/resultado" element={<VistaPrivada><Resultado /></VistaPrivada>} />
           <Route path="/imgs" element={<VistaPrivada><Imagenes /></VistaPrivada>} />
         </Routes>
+        <Toaster/>
       </BrowserRouter>
     </>
   );

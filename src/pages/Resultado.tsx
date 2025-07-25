@@ -1,6 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import type { PuntajeInterface } from "../interfaces/PuntajeInterface";
 import axios from "axios";
+import { useEffect } from "react";
 
 const Resultado = () => {
   const navigate = useNavigate()
@@ -15,10 +16,22 @@ const Resultado = () => {
     nivel:nivel
   }
 
-  const subirPuntaje = async(puntaje:PuntajeInterface) => {
-    await axios.post("http://localhost:3333/puntaje", puntaje)
-    navigate("/home");
+  if (puntajeFinal.porcentaje){
+
   }
+
+useEffect(() => {
+  const subirPuntaje = async (puntaje: PuntajeInterface) => {
+    await axios.post("http://localhost:3333/puntaje", puntaje, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+  };
+
+  subirPuntaje(puntajeFinal);
+}, []);
+
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-300">
@@ -67,7 +80,7 @@ const Resultado = () => {
             </button>
             <button
             className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded"
-            onClick={() => subirPuntaje(puntajeFinal)}
+            onClick={() => navigate("/home")}
             >
             Ir al Home
             </button>

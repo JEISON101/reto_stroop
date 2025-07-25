@@ -4,16 +4,28 @@ import axios from "axios";
 import type { PuntajeInterface } from "../interfaces/PuntajeInterface";
 
 const Puntajes = () => {
-
   const [puntajes, setPuntajes] = useState<PuntajeInterface[]>([]);
 
-    useEffect(() => {
-      const getPuntajes = async () => {
-          const response = await axios.get("http://localhost:3333/puntajes");
-          setPuntajes(response.data.puntajes);
-      };
-      getPuntajes();
-    }, []);
+useEffect(() => {
+  const getPuntajes = async () => {
+    try {
+      const token = localStorage.getItem("token");
+
+      const response = await axios.get("http://localhost:3333/puntajes", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      setPuntajes(response.data.puntajes);
+    } catch (error) {
+      console.error("Error al obtener los puntajes:", error);
+    }
+  };
+
+  getPuntajes();
+}, []);
+
 
   const info = {
     puntajes: {
@@ -22,7 +34,7 @@ const Puntajes = () => {
         correctas: { _correctas: p.correctas },
         porcentaje: { _porcentaje_correctas: p.porcentaje },
         reaccion: { _tiempo_reaccion: p.reaccion },
-        nivel: { _nivel: p.nivel }
+        nivel: { _nivel: p.nivel },
       })),
     },
   };

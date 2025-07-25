@@ -10,6 +10,7 @@ const Imagenes: React.FC = () => {
     const getImgs = async () => {
       try {
         const response = await axios.get("http://localhost:3333/imgs");
+        console.log(response.data)
         setImagenes(response.data);
       } catch (error) {
         console.error(error);
