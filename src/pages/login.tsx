@@ -15,6 +15,7 @@ const login: React.FC = () => {
       navigate("/home");
     } catch (err) {
       console.log(err);
+      alert("Error al iniciar sesión. Por favor, verifica tus credenciales.");
     }
   };
 
@@ -64,6 +65,7 @@ const login: React.FC = () => {
             Ingresar
           </button>
         </form>
+        <a href="/register" className="text-md">no tienes cuenta? registrate</a>
       </div>
     </div>
   );

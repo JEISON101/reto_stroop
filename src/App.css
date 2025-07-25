@@ -1,3 +1,42 @@
 #root {
   margin: 0 auto;
 }
+
+.toast-alert {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background-color: #323232;
+  color: #fff;
+  padding: 16px 24px;
+  border-radius: 8px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  font-size: 16px;
+  z-index: 1000;
+  opacity: 1;
+  animation: slideIn 0.3s ease-out;
+  transition: opacity 0.5s ease;
+}
+
+.toast-alert.fade-out {
+  opacity: 0;
+  animation: fadeOut 0.5s forwards;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  to {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+}

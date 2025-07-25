@@ -15,23 +15,13 @@ const Resultado = () => {
     reaccion:reaccion,
     nivel:nivel
   }
-
-  if (puntajeFinal.porcentaje){
-
-  }
-
-useEffect(() => {
+  
+  useEffect(() => {
   const subirPuntaje = async (puntaje: PuntajeInterface) => {
-    await axios.post("http://localhost:3333/puntaje", puntaje, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    });
-  };
-
-  subirPuntaje(puntajeFinal);
+    await axios.post("http://localhost:3333/puntaje", puntaje)
+    }
+    subirPuntaje(puntajeFinal)
 }, []);
-
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-300">

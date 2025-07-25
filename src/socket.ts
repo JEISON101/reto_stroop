@@ -1,7 +1,12 @@
 import { io } from 'socket.io-client';
 
-const URL = process.env.NODE_ENV === 'production' ? undefined : 'http://localhost:3333';
+const URL = 'http://localhost:3333';
 
-export const socket = io(URL, {
-  autoConnect: false}
-);
+export const socket = io(URL);
+
+socket.on('connect', () => {
+  console.log('Conectado al servidor de socket.io');
+});
+socket.on('connect_error', (err) => {
+  console.log(err.message);
+});

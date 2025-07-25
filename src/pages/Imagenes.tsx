@@ -10,34 +10,35 @@ const Imagenes: React.FC = () => {
     const getImgs = async () => {
       try {
         const response = await axios.get("http://localhost:3333/imgs");
-        console.log(response.data)
         setImagenes(response.data);
       } catch (error) {
         console.error(error);
       }
-    };
+    }
     getImgs();
-  }, []);
+  }, [imagenes]);
 
   const enviarFoto = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.target as HTMLFormElement;
     const fileInput = form.elements.namedItem("imagen") as HTMLInputElement;
     if (!fileInput.files || fileInput.files.length === 0) return;
-
     const formData = new FormData();
     formData.append("imagen", fileInput.files[0]);
     try {
       await axios.post("http://localhost:3333/img", formData, {
-        headers: { "Content-Type": "multipart/form-data" },
+        headers: { "Content-Type": "multipart/form-data"},
       });
-      const response = await axios.get("http://localhost:3333/imgs");
-      setImagenes(response.data);
       form.reset();
     } catch (error) {
       console.error(error);
     }
   };
+
+  const cambiarImagen = async() => {
+    await axios.put("")
+  }
+
   return (
     <>
       <div className="flex flex-col items-center p-4">
@@ -57,25 +58,27 @@ const Imagenes: React.FC = () => {
           </button>
         </form>
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-6">
-          {imagenes.map((img, idx) => (
-            <div
-              key={idx}
-              onClick={() => {
-                localStorage.setItem("imagen", img.url);
-                navigate("/home");
-              }}
-              className="border border-gray-300 rounded-lg p-2 w-32 text-center"
-            >
-              <img
-                src={img.url}
-                alt={img.name || `Imagen ${idx + 1}`}
-                className="w-full h-20 object-cover rounded"
-              />
-              <div className="mt-2 text-xs">
-                {img.name || `Imagen ${idx + 1}`}
+          {
+            imagenes.map((img, idx) => (
+              <div
+                key={idx}
+                onClick={() => {
+                  cambiarImagen()
+                  navigate("/home");
+                }}
+                className="border border-gray-300 rounded-lg p-2 w-32 text-center"
+              >
+                <img
+                  src={img.url}
+                  alt={img.name || `Imagen ${idx + 1}`}
+                  className="w-full h-20 object-cover rounded"
+                />
+                <div className="mt-2 text-xs">
+                  {img.name || `Imagen ${idx + 1}`}
+                </div>
               </div>
-            </div>
-          ))}
+            ))
+          }
         </div>
       </div>
     </>

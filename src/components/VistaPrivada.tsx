@@ -6,7 +6,7 @@ type Props = {
 
 const PrivateRoute: React.FC<Props> = ({ children }) => {
   const token = localStorage.getItem('token')
-  return token ? children : <Navigate to="/login" />
+  return token ? children : <Navigate to="/" />
 }
 
 export default PrivateRoute

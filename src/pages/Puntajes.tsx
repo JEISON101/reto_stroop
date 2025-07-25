@@ -16,7 +16,7 @@ useEffect(() => {
           Authorization: `Bearer ${token}`,
         },
       });
-
+      console.log(response.data)
       setPuntajes(response.data.puntajes);
     } catch (error) {
       console.error("Error al obtener los puntajes:", error);
