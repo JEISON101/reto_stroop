@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { socket } from "../socket";
 
 const Imagenes: React.FC = () => {
   const [imagenes, setImagenes] = useState<any[]>([]);
@@ -27,7 +28,7 @@ const Imagenes: React.FC = () => {
     formData.append("imagen", fileInput.files[0]);
     try {
       await axios.post("http://localhost:3333/img", formData, {
-        headers: { "Content-Type": "multipart/form-data"},
+        headers: { "Content-Type": "multipart/form-data", "socketId":socket.id},
       });
       form.reset();
     } catch (error) {
