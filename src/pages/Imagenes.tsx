@@ -36,7 +36,8 @@ const Imagenes: React.FC = () => {
     }
   };
 
-  const cambiarImagen = async() => {
+  const cambiarImagen = async(imagen:string) => {
+    localStorage.setItem('imagen', imagen)
     await axios.put("")
   }
 
@@ -64,7 +65,7 @@ const Imagenes: React.FC = () => {
               <div
                 key={idx}
                 onClick={() => {
-                  cambiarImagen()
+                  cambiarImagen(img.url)
                   navigate("/home");
                 }}
                 className="border border-gray-300 rounded-lg p-2 w-32 text-center"

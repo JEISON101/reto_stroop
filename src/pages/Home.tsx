@@ -2,17 +2,23 @@ import { FaTrophy } from "react-icons/fa6";
 import { FaCogs } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { BiExit, BiPlay } from "react-icons/bi";
+import { useUser } from "../context/userContext";
 
 const Home: React.FC = () => {
+  const { usuario, setUsuario } = useUser();
   const navigate = useNavigate();
-  function printMessage(e: React.MouseEvent<HTMLImageElement>) {
-    e.preventDefault();
-  }
 
   const salir = () => {
-    localStorage.clear()
-    navigate('/')
-  }
+    setUsuario({
+      id: 0,
+      nombre: "",
+      imagen: "",
+      token: "",
+      email: "",
+      password: "",
+    });
+    navigate("/");
+  };
 
   return (
     <>
@@ -20,17 +26,16 @@ const Home: React.FC = () => {
         <div className="relative">
           <div className="flex justify-center bg-blue-900 w-full h-32 rounded-b-4xl">
             <h2 className="p-4 text-2xl text-white font-bold">
-              {localStorage.getItem("nombre")}
+              {usuario.nombre ? usuario.nombre : "Usuario sin nombre"}
             </h2>
           </div>
 
           <div className="flex justify-center">
             <img
               onClick={(e) => {
-                navigate("/imgs");
-                printMessage(e);
+                navigate("/imgs")
               }}
-              src={localStorage.getItem("imagen")}
+              src={usuario.imagen}
               className="rounded-full w-32 h-32 object-cover -mt-18 border-4 bg-white border-white"
             />
           </div>

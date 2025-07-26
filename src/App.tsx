@@ -25,7 +25,7 @@ function App() {
       setTimeout(() => {
         alertaDiv.classList.add("fade-out");
         alertaDiv.addEventListener("animationend", () => alertaDiv.remove());
-      }, 3000);
+      }, 5000);
     });
 
     return () => {
@@ -34,7 +34,7 @@ function App() {
   }, []);
 
   return (
-    <>
+    <><UserProvider>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Login />} />
@@ -91,6 +91,7 @@ function App() {
           />
         </Routes>
       </BrowserRouter>
+      </UserProvider>
     </>
   );
 }

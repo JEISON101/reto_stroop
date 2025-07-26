@@ -1,10 +1,7 @@
 import { useContext, createContext, useState, type ReactNode } from "react";
 import type { UsuarioInterface } from "../interfaces/Usuario";
 
-const UserContext = createContext<{
-  usuario: UsuarioInterface;
-  setUsuario: React.Dispatch<React.SetStateAction<UsuarioInterface>>;
-}>({ usuario: {} as UsuarioInterface, setUsuario: () => {} });
+const UserContext = createContext({ usuario: {} as UsuarioInterface, setUsuario: ({usuario}:UsuarioInterface) => {} });
 
 export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [usuario, setUsuario] = useState<UsuarioInterface>({

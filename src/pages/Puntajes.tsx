@@ -9,14 +9,7 @@ const Puntajes = () => {
 useEffect(() => {
   const getPuntajes = async () => {
     try {
-      const token = localStorage.getItem("token");
-
-      const response = await axios.get("http://localhost:3333/puntajes", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      console.log(response.data)
+      const response = await axios.get("http://localhost:3333/puntajes");
       setPuntajes(response.data.puntajes);
     } catch (error) {
       console.error("Error al obtener los puntajes:", error);
@@ -24,7 +17,7 @@ useEffect(() => {
   };
 
   getPuntajes();
-}, []);
+}, [puntajes]);
 
 
   const info = {
